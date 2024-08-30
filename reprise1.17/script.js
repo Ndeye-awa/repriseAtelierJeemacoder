@@ -1,4 +1,4 @@
-class JeemaCoder extends React.omponent {
+class JeemaCoder extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
