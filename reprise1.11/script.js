@@ -26,6 +26,16 @@ class JeemaCoder extends React.Component {
         telephoneInput: "",
       });
     }
+
+    handleEdit(index) {
+      const coder = this.state.coders[index]
+      this.setState({
+        prenomInput: coder.prenom,
+        nomInput: coder.nom,
+        emailInput: coder.email,
+        telephoneInput: coder.telephone,
+      })
+    }
   
     render() {
       return (
@@ -100,16 +110,27 @@ class JeemaCoder extends React.Component {
                   <th scope="col">Nom</th>
                   <th scope="col">Email</th>
                   <th scope="col">Telephone</th>
+                  <th scope="col">Actions</th>
+
                 </tr>
               </thead>
               <tbody>
-                {this.state.coders.map((coder) => {
+                {this.state.coders.map((coder, index) => {
                   return (
                     <tr>
                       <td>{coder.prenom}</td>
                       <td>{coder.nom}</td>
                       <td>{coder.email}</td>
                       <td>{coder.telephone}</td>
+                      <td>
+                        <button
+                        className="btn btn-outline-warning"
+                        onClick={() => this.handleEdit(index)}
+                        >
+                          Modifier
+                        </button>
+                      </td>
+
                     </tr>
                   );
                 })}
