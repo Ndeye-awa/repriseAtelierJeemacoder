@@ -7,9 +7,11 @@ class JeemaCoder extends React.Component {
       emailInput: "",
       telephoneInput: "",
       coders: [],
-      editIndex: null
+      editIndex: null,
     };
     this.handleClick = this.handleClick.bind(this);
+    this.goumbalaHandleClickEdit = this.goumbalaHandleClickEdit.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
   }
 
   handleClick() {
@@ -38,8 +40,30 @@ class JeemaCoder extends React.Component {
       nomInput: coder.nom,
       emailInput: coder.email,
       telephoneInput: coder.telephone,
-      // editIndex: index
+      editIndex: index,
       })
+  }
+
+  goumbalaHandleClickEdit() {
+    const modifCoder = {
+      prenom: this.state.prenomInput,
+      nom: this.state.nomInput,
+      email: this.state.emailInput,
+      telephone: this.state.telephoneInput,
+    };
+
+    if (this.state.editIndex !== null) {
+      const updatedCoders = [...this.state.coders];
+      updatedCoders[this.state.editIndex] = modifCoder;
+      this.setState({ 
+      coders: updatedCoders,
+      editIndex: null,
+      prenomInput: "",
+      nomInput: "",
+      emailInput: "",
+      telephoneInput: "",
+      })
+    }
   }
 
   render() {
@@ -97,12 +121,21 @@ class JeemaCoder extends React.Component {
                 />
               </div>
             </div>
+            {this.state.editIndex !== null ?
             <button
-              onClick={this.handleClick}
-              className="btn btn-outline-primary w-100 mt-3"
+              onClick={this.goumbalaHandleClickEdit}
+              className="btn btn-outline-warning w-100 mt-3"
             >
-              Submit
+              Modifier
             </button>
+            :
+            <button
+                onClick={this.handleClick}
+                className="btn btn-outline-primary w-100 mt-3"
+              >
+                Submit
+              </button>
+            }
             
           </div>
         </div>
@@ -121,7 +154,7 @@ class JeemaCoder extends React.Component {
             <tbody>
               {this.state.coders.map((coder, index) => {
                 return (
-                  <tr>
+                  <tr key={index}>
                     <td>{coder.prenom}</td>
                     <td>{coder.nom}</td>
                     <td>{coder.email}</td>
